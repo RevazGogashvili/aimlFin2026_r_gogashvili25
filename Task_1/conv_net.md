@@ -14,10 +14,10 @@ The fundamental operation of a neuron in a convolutional layer follows the stand
 $$y=σ(\sum_{i=l}^n w_ix_i+b)$$
 
 Where:
-* x<sub>i</sub>: Input signals from a localized area.
-* w<sub>i</sub>: Weights (Kernel/Filter).
-* b: Bias term.
-* σ: Activation function (e.g., ReLU, Sigmoid).
+* **x<sub>i</sub>:** Input signals from a localized area.
+* **w<sub>i</sub>:** Weights (Kernel/Filter).
+* **b:** Bias term.
+* **σ:** Activation function (e.g., ReLU, Sigmoid).
   
 Unlike dense networks, a Weight Matrix (Filter/Kernel) is shared across the entire input. A single neuron "slides" across the image, calculating outputs step-by-step. This results in a Feature Map.
 For example, an input of 12×14 pixels can be mapped to an 8×10 output volume through this localized connectivity.
@@ -25,23 +25,23 @@ For example, an input of 12×14 pixels can be mapped to an 8×10 output volume t
 ### 3D Convolution and Hyperparameters
 
 In modern applications, we process Input Volumes rather than 2D planes.
-* Input Volume: Typically expressed as W×H×D (Width, Height, Depth/Channels).
-* Filters: As shown in the technical slides, a convolutional layer may have multiple filters (W<sub>0</sub>, W<sub>1</sub>, W<sub>n</sub>...). For an input volume with 3 color channels (RGB) and a 1×1 padding, a 7×7×3 input processed by 3×3×3 filters with a Stride of 2 produces a 3×3×2 output volume.
+* **Input Volume:** Typically expressed as W×H×D (Width, Height, Depth/Channels).
+* **Filters:** As shown in the technical slides, a convolutional layer may have multiple filters (W<sub>0</sub>, W<sub>1</sub>, W<sub>n</sub>...). For an input volume with 3 color channels (RGB) and a 1×1 padding, a 7×7×3 input processed by 3×3×3 filters with a Stride of 2 produces a 3×3×2 output volume.
 
 Key Terms:
-* Stride: The shift magnitude of the filter. A higher stride reduces the output dimensions.
-* Padding: Filling the edges of the input with zeros to ensure the filter fits the original image dimensions.
-* Dilated Convolution: A technique where the filter is modeled as a "mesh," skipping certain pixels to expand the receptive field without increasing parameters.
+* **Stride:** The shift magnitude of the filter. A higher stride reduces the output dimensions.
+* **Padding:** Filling the edges of the input with zeros to ensure the filter fits the original image dimensions.
+* **Dilated** Convolution: A technique where the filter is modeled as a "mesh," skipping certain pixels to expand the receptive field without increasing parameters.
 
 ### Hierarchical Feature Detection
 CNNs learn patterns through increasing complexity across layers:
-* Low-Level Features: Kernels specialize in detecting edges, lines, and color gradients.
-* Mid-Level Features: Combinations of edges form textures and motifs.
-* High-Level Features: Deep layers recognize complex object parts (e.g., wheels, mirrors, or specific code structures in cybersecurity).
+* **Low-Level Features:** Kernels specialize in detecting edges, lines, and color gradients.
+* **Mid-Level Features:** Combinations of edges form textures and motifs.
+* **High-Level Features:** Deep layers recognize complex object parts (e.g., wheels, mirrors, or specific code structures in cybersecurity).
 
 ### Optimization: Pooling and Dropout
-* Max Pooling: To reduce parameters and prevent overfitting, we use a 2×2 matrix to downsample the feature map, keeping only the maximal value (the "essence" of the information).
-* Dropout: This regularization method randomly "deactivates" neurons during training, forcing the network to learn more robust features and enhancing trainability.
+* **Max Pooling:** To reduce parameters and prevent overfitting, we use a 2×2 matrix to downsample the feature map, keeping only the maximal value (the "essence" of the information).
+* **Dropout:** This regularization method randomly "deactivates" neurons during training, forcing the network to learn more robust features and enhancing trainability.
 
 ## Cybersecurity Application: Malware Visual Classification
 In cybersecurity, CNNs are utilized to identify malware families by converting binary files into grayscale images. 
@@ -91,3 +91,4 @@ model.summary()
 # 5. Training (Simulated)
 # model.fit(X_train, y_train, epochs=10, batch_size=32)
 ```
+
