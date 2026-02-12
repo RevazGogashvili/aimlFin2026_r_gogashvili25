@@ -1,11 +1,11 @@
-# Comprehensive Overview of Transformer Networks in Cybersecurity
+## Overview of Transformer Networks in Cybersecurity
 
-## 1. Introduction
+### Introduction
 The Transformer architecture, introduced in the seminal paper *"Attention Is All You Need"* (2017), represents the current state-of-the-art in deep learning. Unlike its predecessors, such as Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) networks, Transformers eliminate sequential processing in favor of parallelization. This shift allows for the processing of massive datasets with high efficiency and the ability to capture "long-range dependencies"—relationships between data points that are far apart in a sequence.
 
-## 2. Core Mechanics
+### Core Mechanics
 
-### A. The Self-Attention Mechanism ($Q, K, V$)
+#### The Self-Attention Mechanism ($Q, K, V$)
 The most significant innovation of the Transformer is the **Self-Attention mechanism**. Each input token produces three vectors:
 *   **Query (Q):** What the token is looking for.
 *   **Key (K):** What the token contains.
@@ -13,7 +13,7 @@ The most significant innovation of the Transformer is the **Self-Attention mecha
 
 The model calculates an attention score by comparing the Query of one token with the Keys of all others, determining how much "focus" to place on different parts of the sequence.
 
-### B. Positional Encoding
+#### Positional Encoding
 Because Transformers process all tokens simultaneously, they lack an inherent sense of order. To resolve this, **Positional Encodings** are added to the input embeddings. These are calculated using sine and cosine functions of different frequencies, creating a unique signature for every position in a sequence.
 
 #### Mathematical Visualization
@@ -22,13 +22,13 @@ Below is a self-generated heatmap representing the sinusoidal positional encodin
 ![Generated Positional Encoding](positional_encoding.png)
 *Figure 1: Sinusoidal Positional Encoding heatmap generated via Python (see Code Breakdown section).*
 
-### C. Architecture Overview
+#### Architecture Overview
 The model consists of an **Encoder** (which reads and understands the input) and a **Decoder** (which generates the output). Both utilize **Multi-Head Attention**, allowing the model to focus on various types of relationships (e.g., syntax vs. semantics) at the same time.
 
 ![Transformer Architecture](attention_mechanism.png)
 *Figure 2: The standard Transformer architecture featuring Encoder/Decoder stacks.*
 
-## 3. Applications in Cybersecurity
+### Applications in Cybersecurity
 
 The ability of Transformers to understand context and detect complex patterns makes them invaluable in modern cybersecurity:
 
@@ -37,7 +37,7 @@ The ability of Transformers to understand context and detect complex patterns ma
 3.  **Advanced Phishing Detection:** Large Language Models (LLMs) based on Transformers excel at detecting the subtle linguistic cues of social engineering, identifying malicious emails that do not contain links or attachments but aim to deceive users.
 4.  **Automated Vulnerability Research:** Transformers can scan source code to predict potential vulnerabilities (like buffer overflows) by understanding how data flows across complex, multi-file projects.
 
-## 4. Source Code and Logic Breakdown
+### Source Code and Logic Breakdown
 
 To generate the positional encoding visualization in Figure 1, the following Python script was developed:
 
@@ -67,7 +67,7 @@ plt.ylabel('Token Position')
 plt.title('Generated Positional Encoding Heatmap')
 plt.savefig('positional_encoding.png')
 ```
-#### Logic Breakdown
+### Logic Breakdown
 * ```pos``` **Loop:** Iterates through each word/token position in the sequence.
 * ```i``` **Loop:** terates through the embedding dimensions
 * **Sine/Cosine Functions:** Even indices use Sine and odd indices use Cosine. The denominator ```10000 ** ((2 * i) / d_model)``` ensures that different dimensions have different frequencies, allowing the model to learn to attend to relative positions easily.
