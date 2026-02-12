@@ -48,7 +48,6 @@ In cybersecurity, CNNs are utilized to identify malware families by converting b
 This circumvents traditional signature-based detection, as the structural "texture" of the malware (data sections, code blocks, headers) remains consistent even if the code is obfuscated.
 
 ```
-Python
 import tensorflow as tf
 from tensorflow.keras import layers, models
 import numpy as np
