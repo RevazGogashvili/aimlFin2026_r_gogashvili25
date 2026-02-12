@@ -3,7 +3,7 @@ This report details the identification of a Distributed Denial of Service (DDoS)
 
 ### Dataset and Resources
 The analysis was performed on the following server log file:
-*   **Log File:** [Download server.log](./server.log)
+*   **Log File:** [server.log](./server.log)
 *   **Analysis Script:** [ddos_analysis.py](./ddos_analysis.py)
 
 ### Methodology and Source Code Fragments
