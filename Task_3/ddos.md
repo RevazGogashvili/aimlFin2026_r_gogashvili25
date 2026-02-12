@@ -40,12 +40,12 @@ ddos_events = df_resampled[df_resampled['actual_count'] > threshold]
 ### Identified DDoS Attack Intervals
 The regression analysis identified a sustained attack occurring during the following intervals:
 
-| Timestamp | Request Count  | Status |
-|---------|----------------|----------|
-| 2024-03-22 18:10:00 | 	7,263         |	Attack Detected |
-| 2024-03-22 18:11:00 | 	7,245         |	Attack Detected |
-| 2024-03-22 18:13:00 | 	11,468        | Peak Attack |
-| 2024-03-22 18:14:00 | 	11,279        | Peak Attack |
+| Timestamp | Request Count (per min) | Status |
+|---------|-------------------------|----------|
+| 2024-03-22 18:10:00 | 	7,263                  |	Attack Detected |
+| 2024-03-22 18:11:00 | 	7,245                  |	Attack Detected |
+| 2024-03-22 18:13:00 | 	11,468                 | Peak Attack |
+| 2024-03-22 18:14:00 | 	11,279                 | Peak Attack |
 
 ### Visualization
 The graph below visualizes the traffic spike. 
