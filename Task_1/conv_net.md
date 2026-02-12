@@ -1,94 +1,94 @@
 ## Technical Description of Convolutional Neural Networks (CNN)
 
-### From Dense Architectures to Biological Topology
+### Foundations of CNN Architecture
+While traditional fully connected (dense) networks are mathematically "universal," they are computationally inefficient for high-dimensional data like images or binary feature maps. Convolutional Neural Networks (CNNs) overcome this by modeling the biological topology of the human visual system (Slides 2-6). 
 
-While fully connected (dense) networks are "universal," their universality comes at a high cost of training time and computational resources. When processing an image of 100×100,
-a single dense neuron requires 10,000 weights. CNNs overcome this by modeling the topology of the human eye and brain.
+Just as the human retina processes localized areas of the visual field through a chain of neurons, CNNs focus on spatial relationships. This is achieved through **Weight Sharing**, where a small matrix (the Kernel) slides across the input to detect features. This approach significantly reduces the number of parameters compared to dense architectures.
 
-In the human eye, the retina contains light-sensitive cells. Biological neurons are connected to localized areas of the retina rather than the entire visual field. 
-This "vision chain" ensures that the network focuses on spatial relationships, significantly reducing the number of parameters through Weight Sharing.
+### Mathematical Framework: The Convolutional Layer
+The core operation of a CNN is the convolution, where a shared filter calculates the weighted sum of its local neighborhood. The output $y$ of a unit follows the standard activation formula applied locally:
 
-### Mathematical Framework and the "Sliding" Neuron
-The fundamental operation of a neuron in a convolutional layer follows the standard activation formula, but applied locally:
+$$y = \sigma\left( \sum_{i=1}^{n} w_i x_i + b \right)$$
 
-$$y=σ(\sum_{i=l}^n w_ix_i+b)$$
+As illustrated in the technical framework (Slide 9), modern CNNs process 3D volumes. For an input volume with multiple channels (like RGB or multi-layered cyber logs), we apply kernels that detect patterns across all dimensions simultaneously.
 
-Where:
-* **x<sub>i</sub>:** Input signals from a localized area.
-* **w<sub>i</sub>:** Weights (Kernel/Filter).
-* **b:** Bias term.
-* **σ:** Activation function (e.g., ReLU, Sigmoid).
-  
-Unlike dense networks, a Weight Matrix (Filter/Kernel) is shared across the entire input. A single neuron "slides" across the image, calculating outputs step-by-step. This results in a Feature Map.
-For example, an input of 12×14 pixels can be mapped to an 8×10 output volume through this localized connectivity.
+![3D Filter Mathematics](filter_math.png)
+*Figure 1: Visualization of Filter W0 and Bias b0 interacting with a 3D Input Volume (Slide 9).*
 
-### 3D Convolution and Hyperparameters
-
-In modern applications, we process Input Volumes rather than 2D planes.
-* **Input Volume:** Typically expressed as W×H×D (Width, Height, Depth/Channels).
-* **Filters:** As shown in the technical slides, a convolutional layer may have multiple filters (W<sub>0</sub>, W<sub>1</sub>, W<sub>n</sub>...). For an input volume with 3 color channels (RGB) and a 1×1 padding, a 7×7×3 input processed by 3×3×3 filters with a Stride of 2 produces a 3×3×2 output volume.
-
-Key Terms:
-* **Stride:** The shift magnitude of the filter. A higher stride reduces the output dimensions.
-* **Padding:** Filling the edges of the input with zeros to ensure the filter fits the original image dimensions.
-* **Dilated** Convolution: A technique where the filter is modeled as a "mesh," skipping certain pixels to expand the receptive field without increasing parameters.
-
-### Hierarchical Feature Detection
-CNNs learn patterns through increasing complexity across layers:
-* **Low-Level Features:** Kernels specialize in detecting edges, lines, and color gradients.
-* **Mid-Level Features:** Combinations of edges form textures and motifs.
-* **High-Level Features:** Deep layers recognize complex object parts (e.g., wheels, mirrors, or specific code structures in cybersecurity).
+#### Essential Hyperparameters:
+*   **Stride:** The magnitude of the shift the filter makes across the input (Slide 28).
+*   **Padding:** Filling the edges of the input with zeros to ensure the filter fits the original image dimensions and border information is preserved (Slide 29).
 
 ### Optimization: Pooling and Dropout
-* **Max Pooling:** To reduce parameters and prevent overfitting, we use a 2×2 matrix to downsample the feature map, keeping only the maximal value (the "essence" of the information).
-* **Dropout:** This regularization method randomly "deactivates" neurons during training, forcing the network to learn more robust features and enhancing trainability.
+To ensure computational efficiency and prevent the model from overfitting to training data, two critical layers are utilized:
 
-## Cybersecurity Application: Malware Visual Classification
-In cybersecurity, CNNs are utilized to identify malware families by converting binary files into grayscale images. 
-This circumvents traditional signature-based detection, as the structural "texture" of the malware (data sections, code blocks, headers) remains consistent even if the code is obfuscated.
+#### Max Pooling
+This downsampling method reduces the dimensionality of the feature maps. By taking a 2x2 matrix and keeping only the maximum value, the model preserves the most critical information while reducing the parameters for the following layers.
 
-```
+![Max Pooling Mechanism](pooling.png)
+*Figure 2: Max Pooling process reducing a 4x4 matrix to a 2x2 representation (Slide 36).*
+
+#### Dropout
+Dropout is a regularization technique used to prevent overfitting. It works by randomly "deactivating" a percentage of neurons during training, forcing the network to learn more robust and generalized features rather than relying on specific paths.
+
+![Dropout Implementation](dropout.png)
+*Figure 3: The structure of a neural network before and after applying Dropout (Slide 37).*
+
+### Cybersecurity Application: Malware Visual Classification
+In cybersecurity, CNNs are a powerful tool for identifying malware families. By converting raw binary files into grayscale images, we can identify structural "textures" that signify malicious intent. This allows security systems to detect obfuscated malware that may bypass traditional signature-based scanners.
+
+#### Python Implementation (Reproducible Proxy Data)
+The following code demonstrates a CNN architecture designed for structural classification. It uses a built-in dataset as a proxy for malware feature maps to ensure reproducibility for the reader.
+
+```python
 import tensorflow as tf
 from tensorflow.keras import layers, models
+import matplotlib.pyplot as plt
 import numpy as np
 
-# 1. Simulating Malware Binary-to-Image Data
-# Raw bytes of a .exe are reshaped into 64x64 pixel grayscale images
-def load_malware_data():
-    X = np.random.rand(200, 64, 64, 1).astype('float32') # 200 samples
-    y = np.random.randint(0, 2, 200) # 0: Benign, 1: Malware
-    return X, y
+# 1. Dataset: Using a structural dataset as a proxy for malware feature maps
+def load_proxy_data():
+    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+    x_train, x_test = x_train / 255.0, x_test / 255.0
+    x_train = x_train.reshape(-1, 28, 28, 1)
+    x_test = x_test.reshape(-1, 28, 28, 1)
+    return x_train, y_train, x_test, y_test
 
-X_train, y_train = load_malware_data()
+X_train, y_train, X_test, y_test = load_proxy_data()
 
-# 2. Designing the CNN Architecture
+# 2. CNN Architecture
 model = models.Sequential([
-    # First Conv Layer: 32 Filters, 3x3 Kernel, ReLU Activation
-    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 1)),
-    layers.MaxPooling2D((2, 2)), # Max Pooling to reduce dimensionality
-    
-    # Second Conv Layer: 64 Filters for complex pattern recognition
+    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    layers.MaxPooling2D((2, 2)),
     layers.Conv2D(64, (3, 3), activation='relu'),
     layers.MaxPooling2D((2, 2)),
-    
-    # Fully Connected Transition
     layers.Flatten(),
-    layers.Dense(128, activation='relu'),
-    layers.Dropout(0.5), # Dropout for regularization
-    layers.Dense(1, activation='sigmoid') # Binary Classification
+    layers.Dense(64, activation='relu'),
+    layers.Dropout(0.2),
+    layers.Dense(10, activation='softmax')
 ])
 
-# 3. Compilation with Cybersecurity Metrics
-model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy',
-    metrics=['accuracy', tf.keras.metrics.Precision(), tf.keras.metrics.Recall()]
-)
+# 3. Compilation and Model Training
+model.compile(optimizer='adam', 
+              loss='sparse_categorical_crossentropy', 
+              metrics=['accuracy'])
 
-# 4. Model Architecture Summary
-model.summary()
+print("Executing CNN training...")
+history = model.fit(X_train, y_train, epochs=5, batch_size=64, validation_split=0.2)
 
-# 5. Training (Simulated)
-# model.fit(X_train, y_train, epochs=10, batch_size=32)
+# 4. Generate Training Plot
+plt.figure(figsize=(10, 5))
+plt.plot(history.history['accuracy'], label='Training Accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.title('CNN Training Performance (Malware Proxy Data)')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.savefig('cnn_training.png')
+print("Training plot saved as cnn_training.png")
 ```
+### Training Results
+The training plot below demonstrates the network's ability to learn and generalize patterns within the structural data.
+![alt text](cnn_training.png)
 
+Figure 4: Accuracy metrics showing the model's convergence over 5 training epochs.
