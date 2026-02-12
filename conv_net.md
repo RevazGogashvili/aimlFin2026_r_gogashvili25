@@ -16,7 +16,7 @@ $$y=σ(\sum_{i=l}^n w_ix_i+b)$$
 Where:
 * x<sub>i</sub>: Input signals from a localized area.
 * w<sub>i</sub>: Weights (Kernel/Filter).
-* b:: Bias term.
+* b: Bias term.
 * σ: Activation function (e.g., ReLU, Sigmoid).
   
 Unlike dense networks, a Weight Matrix (Filter/Kernel) is shared across the entire input. A single neuron "slides" across the image, calculating outputs step-by-step. This results in a Feature Map.
@@ -26,7 +26,7 @@ For example, an input of 12×14 pixels can be mapped to an 8×10 output volume t
 
 In modern applications, we process Input Volumes rather than 2D planes.
 * Input Volume: Typically expressed as W×H×D (Width, Height, Depth/Channels).
-* Filters: As shown in the technical slides, a convolutional layer may have multiple filters (W<sub>0</sub>, W<sub>1</sub>...). For an input volume with 3 color channels (RGB) and a 1×1 padding, a 7×7×3 input processed by 3×3×3 filters with a Stride of 2 produces a 3×3×2 output volume.
+* Filters: As shown in the technical slides, a convolutional layer may have multiple filters (W<sub>0</sub>, W<sub>1</sub>, W<sub>n</sub>...). For an input volume with 3 color channels (RGB) and a 1×1 padding, a 7×7×3 input processed by 3×3×3 filters with a Stride of 2 produces a 3×3×2 output volume.
 
 Key Terms:
 * Stride: The shift magnitude of the filter. A higher stride reduces the output dimensions.
