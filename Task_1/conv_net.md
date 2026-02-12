@@ -17,7 +17,7 @@ As illustrated in the technical framework, modern CNNs process 3D volumes. For a
 
 #### Essential Hyperparameters:
 *   **Stride:** The magnitude of the shift the filter makes across the input.
-*   **Padding:** Filling the edges of the input with zeros to ensure the filter fits the original image dimensions and border information is preserved (Slide 29).
+*   **Padding:** Filling the edges of the input with zeros to ensure the filter fits the original image dimensions and border information is preserved.
 
 ### Optimization: Pooling and Dropout
 To ensure computational efficiency and prevent the model from overfitting to training data, two critical layers are utilized:
