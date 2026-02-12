@@ -1,7 +1,7 @@
 ## Technical Description of Convolutional Neural Networks (CNN)
 
 ### Foundations of CNN Architecture
-While traditional fully connected (dense) networks are mathematically "universal," they are computationally inefficient for high-dimensional data like images or binary feature maps. Convolutional Neural Networks (CNNs) overcome this by modeling the biological topology of the human visual system (Slides 2-6). 
+While traditional fully connected (dense) networks are mathematically "universal," they are computationally inefficient for high-dimensional data like images or binary feature maps. Convolutional Neural Networks (CNNs) overcome this by modeling the biological topology of the human visual system. 
 
 Just as the human retina processes localized areas of the visual field through a chain of neurons, CNNs focus on spatial relationships. This is achieved through **Weight Sharing**, where a small matrix (the Kernel) slides across the input to detect features. This approach significantly reduces the number of parameters compared to dense architectures.
 
@@ -10,13 +10,13 @@ The core operation of a CNN is the convolution, where a shared filter calculates
 
 $$y = \sigma\left( \sum_{i=1}^{n} w_i x_i + b \right)$$
 
-As illustrated in the technical framework (Slide 9), modern CNNs process 3D volumes. For an input volume with multiple channels (like RGB or multi-layered cyber logs), we apply kernels that detect patterns across all dimensions simultaneously.
+As illustrated in the technical framework, modern CNNs process 3D volumes. For an input volume with multiple channels (like RGB or multi-layered cyber logs), we apply kernels that detect patterns across all dimensions simultaneously.
 
 ![3D Filter Mathematics](filter_math.png)
-*Figure 1: Visualization of Filter W0 and Bias b0 interacting with a 3D Input Volume (Slide 9).*
+*Figure 1: Visualization of Filter W0 and Bias b0 interacting with a 3D Input Volume.*
 
 #### Essential Hyperparameters:
-*   **Stride:** The magnitude of the shift the filter makes across the input (Slide 28).
+*   **Stride:** The magnitude of the shift the filter makes across the input.
 *   **Padding:** Filling the edges of the input with zeros to ensure the filter fits the original image dimensions and border information is preserved (Slide 29).
 
 ### Optimization: Pooling and Dropout
@@ -26,13 +26,13 @@ To ensure computational efficiency and prevent the model from overfitting to tra
 This downsampling method reduces the dimensionality of the feature maps. By taking a 2x2 matrix and keeping only the maximum value, the model preserves the most critical information while reducing the parameters for the following layers.
 
 ![Max Pooling Mechanism](pooling.png)
-*Figure 2: Max Pooling process reducing a 4x4 matrix to a 2x2 representation (Slide 36).*
+*Figure 2: Max Pooling process reducing a 4x4 matrix to a 2x2 representation.*
 
 #### Dropout
 Dropout is a regularization technique used to prevent overfitting. It works by randomly "deactivating" a percentage of neurons during training, forcing the network to learn more robust and generalized features rather than relying on specific paths.
 
 ![Dropout Implementation](dropout.png)
-*Figure 3: The structure of a neural network before and after applying Dropout (Slide 37).*
+*Figure 3: The structure of a neural network before and after applying Dropout.*
 
 ### Cybersecurity Application: Malware Visual Classification
 In cybersecurity, CNNs are a powerful tool for identifying malware families. By converting raw binary files into grayscale images, we can identify structural "textures" that signify malicious intent. This allows security systems to detect obfuscated malware that may bypass traditional signature-based scanners.
